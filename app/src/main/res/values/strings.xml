@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Books</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_password">Insira a sua password</string>
+    <string name="txt_email">Insira o seu email</string>
+    <string name="login_efetuado">Login efetuado</string>
+    <string name="Err_password_invalida">Password Invalida</string>
+    <string name="err_email_errado">Email errado</string>
+    <string name="tv_boas_vindas">Bem-vindo!</string>
+    <string name="btn_estatico">Livro Estático</string>
+    <string name="btn_dinamico">Livro Dinâmico</string>
+    <string name="btn_email">Enviar Email</string>
+    <string name="txt_livros_lista">Livro (Lista)</string>
+    <string name="txt_livros_grelha">Livro (Grelha)</string>
+    <string name="txt_comunicar">Comunicar</string>
+    <string name="enviar_email">Enviar Email</string>
+    <string name="menu_abrir">Abrir Menu</string>
+    <string name="menu_fechar">Fechar Menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
