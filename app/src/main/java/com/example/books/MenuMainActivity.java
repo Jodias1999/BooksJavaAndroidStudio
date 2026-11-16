@@ -1,5 +1,7 @@
 package com.example.books;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +24,12 @@ import com.google.android.material.navigation.NavigationView;
 public class MenuMainActivity extends AppCompatActivity {
 
     public static final String EMAIL = "EMAIL";
+    private static final String USERS_PREFS = "Dados_Users";
+    private static final String CHAVE_EMAIL_PREFS = "meuEmail";
     ActivityMenuMainBinding binding;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,14 @@ public class MenuMainActivity extends AppCompatActivity {
         });
 
 
-        String email = getIntent().getStringExtra(EMAIL);
+        String email = getIntent().getStringExtra(EMAIL); // sharedPreferences.getString("meuNome");
+        sharedPreferences = getSharedPreferences(USERS_PREFS,Context.MODE_PRIVATE);
+
+        //definir o Editor para permitir guardar / alterar o valor
+        editor = sharedPreferences.edit();
+        editor.putString(CHAVE_EMAIL_PREFS,email);
+        editor.apply();
+
         NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(binding.navigationView.getHeaderView(0));
         headerBinding.tvEmail.setText(email);
         carregarToolbar();

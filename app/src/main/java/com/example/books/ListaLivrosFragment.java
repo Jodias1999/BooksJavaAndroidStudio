@@ -3,6 +3,8 @@ package com.example.books;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,6 +46,8 @@ public class ListaLivrosFragment extends Fragment {
 
             }
         };
+
+
         this.adaptador = new ListaRecyclerAdaptador(Livros,listener);
 
         binding.rvLivros.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -51,5 +55,20 @@ public class ListaLivrosFragment extends Fragment {
         binding.rvLivros.setAdapter(adaptador);
 
         return binding.getRoot();
+    }
+
+  // Alta insert para o over ride
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.fabLista.setOnClickListener(new View.OnClickListener() { // escrevo new dentro do setOn e aparecer a função
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(requireContext(), DetalhesLivroActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 }
