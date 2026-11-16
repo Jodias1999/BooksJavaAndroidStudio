@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".DetalhesLivroActivity">
 
+
     <ImageView
         android:id="@+id/imgCapa"
         android:layout_width="wrap_content"
@@ -45,5 +46,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:tint="@color/white"
+        android:focusable="true"
+        android:src="@drawable/ic_action_guardar" />
 
 </LinearLayout>

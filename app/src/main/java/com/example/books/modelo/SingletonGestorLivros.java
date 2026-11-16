@@ -4,7 +4,6 @@ package com.example.books.modelo;
 import com.example.books.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SingletonGestorLivros {
 
@@ -20,16 +19,16 @@ public class SingletonGestorLivros {
 
     }
     public void gerarLivros(){
-        livros.add(new Livro(1, R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 1", "AMSI TEAM", "2ª Temporada"));
-        livros.add(new Livro(2, R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 2", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(3, R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 3", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(4, R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 4", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(5, R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 5", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(6, R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 6", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(7, R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 7", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(8, R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 8", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(9, R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 9", "AMSI TEAM","2ª Temporada"));
-        livros.add(new Livro(10, R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 10", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 1", "AMSI TEAM", "2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 2", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 3", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 4", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 5", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 6", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 7", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid1, 2024, "Programar em Android AMSI - 8", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.logo_ulo, 2024, "Programar em Android AMSI - 9", "AMSI TEAM","2ª Temporada"));
+        livros.add(new Livro( R.drawable.programarandroid2, 2024, "Programar em Android AMSI - 10", "AMSI TEAM","2ª Temporada"));
 
     }
 
@@ -58,5 +57,28 @@ public class SingletonGestorLivros {
 
         return new ArrayList<>(livros);
     }
+
+    public void deleteLivro(int id){
+        Livro livro = getLivro(id);
+        if (livro != null){
+            livros.remove(livro);
+        }
+    }
+    public void adicionarLivro (Livro livro){
+       livros.add(livro);
+    }
+
+    public void editarLivro(Livro livro){
+
+        Livro livroAEditar = getLivro(livro.getId());
+
+        livroAEditar.setAno(livro.getAno());
+        livroAEditar.setAutor(livro.getAutor());
+        livroAEditar.setSerie(livro.getSerie());
+        livroAEditar.setTitulo(livro.getTitulo());
+    }
+
+
+
 
 }

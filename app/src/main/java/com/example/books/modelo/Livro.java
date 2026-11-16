@@ -1,11 +1,12 @@
 package com.example.books.modelo;
 
 public class Livro{
-    private int id, ano, capa;
+    private  static int autoIncrementId = 1;
+    private int id , ano, capa;
     private String titulo, serie, autor;
     // command + n atalho para construtores e getter e setter
-    public Livro(int id,int capa, int ano, String titulo, String autor, String serie) {
-        this.id = id;
+    public Livro(int capa, int ano, String titulo, String autor, String serie) {
+        this.id = autoIncrementId++;
         this.ano = ano;
         this.capa = capa;
         this.titulo = titulo;
