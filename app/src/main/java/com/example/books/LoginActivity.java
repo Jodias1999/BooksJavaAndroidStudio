@@ -1,12 +1,19 @@
 package com.example.books;
 
-import android.content.Intent;import android.os.Bundle;
+import static com.example.books.MenuMainActivity.CHAVE_EMAIL_PREFS;
+import static com.example.books.MenuMainActivity.USERS_PREFS;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edEmail, edPassword;
 
     private ActivityLoginBinding binding;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         });
+
+        sharedPreferences = getSharedPreferences(USERS_PREFS, Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString(CHAVE_EMAIL_PREFS, "");
+
+        if (!email.isEmpty()){
+            login(email);
+
+        }
+
+
 
 
     }
@@ -69,9 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, R.string.login_efetuado, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(this, MenuMainActivity.class);
-                intent.putExtra(MenuMainActivity.EMAIL,email);
-                startActivity(intent);
+                login(email);
 
             }else{
                binding.edtPassword.setError(getString(R.string.Err_password_invalida));
@@ -84,6 +100,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void login(String email) {
+        Intent intent = new Intent(this, MenuMainActivity.class);
+        intent.putExtra(MenuMainActivity.EMAIL, email);
+        startActivity(intent);
     }
 
 

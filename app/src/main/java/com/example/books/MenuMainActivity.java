@@ -24,8 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 public class MenuMainActivity extends AppCompatActivity {
 
     public static final String EMAIL = "EMAIL";
-    private static final String USERS_PREFS = "Dados_Users";
-    private static final String CHAVE_EMAIL_PREFS = "meuEmail";
+    public static final String USERS_PREFS = "Dados_Users";
+    public static final String CHAVE_EMAIL_PREFS = "meuEmail";
     ActivityMenuMainBinding binding;
 
     private SharedPreferences sharedPreferences;
@@ -38,7 +38,7 @@ public class MenuMainActivity extends AppCompatActivity {
         /*setContentView(R.layout.activity_menu_main);*/
         binding = ActivityMenuMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.drawerLayout, (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class GridLivrosFragment extends Fragment {
 
+    private static final int ADICIONAR_LIVRO = 200 ;
+    private static final int EDITAR_LIVRO = 300 ;
     private  FragmentGridLivrosBinding binding;
     private  GridRecyclerAdaptador adaptador;
 
@@ -49,7 +51,7 @@ public class GridLivrosFragment extends Fragment {
 
                 Intent intent = new Intent(requireContext(), DetalhesLivroActivity.class);
                 intent.putExtra(DetalhesLivroActivity.LIVRO_ID ,livro.getId());
-                startActivity(intent);
+                startActivityForResult(intent, ADICIONAR_LIVRO);
 
 
             }

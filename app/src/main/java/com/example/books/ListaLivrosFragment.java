@@ -1,5 +1,9 @@
 package com.example.books;
 
+import static android.app.Activity.RESULT_OK;
+
+import static com.example.books.DetalhesLivroActivity.RESULT_REMOVE_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -30,6 +34,8 @@ import java.util.ArrayList;
 public class ListaLivrosFragment extends Fragment {
 
 
+    private static final int ADICIONAR_LIVRO = 200 ;
+    private static final int EDITAR_LIVRO = 300 ;
     private FragmentListaLivrosBinding binding;
     private ListaRecyclerAdaptador adaptador;
     private ListaRecyclerAdaptador.OnLivroClickListener listener;
@@ -43,11 +49,13 @@ public class ListaLivrosFragment extends Fragment {
         binding = FragmentListaLivrosBinding.inflate(inflater,container,false);
 
         ArrayList<Livro> Livros = SingletonGestorLivros.getInstance().getLivros();
-        ListaRecyclerAdaptador.OnLivroClickListener listener = new ListaRecyclerAdaptador.OnLivroClickListener() {
+        listener = new ListaRecyclerAdaptador.OnLivroClickListener() {
             @Override
             public void onLivroClick(Livro livro) {
                 Toast.makeText(requireContext(), livro.getTitulo(), Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(requireContext(), DetalhesLivroActivity.class);
+                intent.putExtra(DetalhesLivroActivity.LIVRO_ID ,livro.getId());
+                startActivityForResult(intent, EDITAR_LIVRO);
 
 
             }
@@ -73,11 +81,38 @@ public class ListaLivrosFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent intent = new Intent(requireContext(), DetalhesLivroActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,ADICIONAR_LIVRO);
 
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+       // super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == RESULT_OK || resultCode == RESULT_REMOVE_OK){
+            ArrayList<Livro> livros = SingletonGestorLivros.getInstance().getLivros();
+            atualizarLista(livros);
+
+            if (requestCode == ADICIONAR_LIVRO){
+                Toast.makeText(requireContext(), "Livro criado com Sucesso", Toast.LENGTH_SHORT).show();
+
+            }else if (resultCode == RESULT_REMOVE_OK) {
+                Toast.makeText(requireContext(), "Livro removido com Sucesso", Toast.LENGTH_SHORT).show();
+
+            }else if (requestCode == EDITAR_LIVRO){
+
+                Toast.makeText(requireContext(), "Livro editado com Sucesso", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+    }
+
+     private void atualizarLista(ArrayList<Livro> livros){
+         this.adaptador = new ListaRecyclerAdaptador(livros, listener);
+         binding.rvLivros.setAdapter(adaptador);
+     };
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

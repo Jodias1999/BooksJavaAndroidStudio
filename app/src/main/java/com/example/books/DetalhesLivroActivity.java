@@ -1,5 +1,6 @@
 package com.example.books;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class DetalhesLivroActivity extends AppCompatActivity {
 
     public static final String LIVRO_ID = "ID DO LIVRO";
+    public static final int RESULT_REMOVE_OK = 400;
 
     private ActivityDetalhesLivroBinding binding;
 
@@ -130,6 +133,7 @@ public class DetalhesLivroActivity extends AppCompatActivity {
             Livro livroAuxiliar = new Livro(R.drawable.logo_ulo,Integer.parseInt(ano),titulo,autor,serie);
 
             SingletonGestorLivros.getInstance().adicionarLivro(livroAuxiliar);
+            setResult(RESULT_OK);
             finish();
 
             // A forma que vamos fazer é através do resultado quando recebe no activity result vai pro livro
@@ -158,10 +162,49 @@ public class DetalhesLivroActivity extends AppCompatActivity {
             livroAEditar.setSerie(serie);
             livroAEditar.setTitulo(titulo);
             SingletonGestorLivros.getInstance().editarLivro(livroAEditar);
+            setResult(RESULT_OK);
             finish();
+
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.itemRemover){
+            dialogRemover();
+            return true;
+        }else{
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void dialogRemover() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("tem a certeza que pretende remover o livro?")
+                .setTitle("RemoverLivro")
+                .setIcon(R.drawable.ic_action_remover);
+
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                removerLivro();
+                setResult(RESULT_REMOVE_OK);
+                finish();
+
+            }
+        });
+
+        builder.show();
+
+    }
+
+    private void removerLivro() {
+
+        SingletonGestorLivros.getInstance().deleteLivro(idlivro);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,19 +212,21 @@ public class DetalhesLivroActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
 
+        if (idlivro != -1){
+
         inflater.inflate(R.menu.menu_remover,menu);
         MenuItem itemRemover = menu.findItem(R.id.itemRemover);
 
         itemRemover.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                SingletonGestorLivros.getInstance().deleteLivro(idlivro);
+                dialogRemover();
                 Toast.makeText(DetalhesLivroActivity.this, "Resultou", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
 
-
+        }
         return super.onCreateOptionsMenu(menu);
     }
 }
